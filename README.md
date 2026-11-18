@@ -54,7 +54,7 @@ The same modes can be set in the address, for scripted runs such as [`?count=250
 
 ## F2 panel
 
-F2 or the **Performance** toggle opens and closes a performance panel in the top right corner.
+F2 or the **Performance** toggle opens and closes a performance panel in the bottom right corner.
 The frame rows update every 500 ms, and the counts also update after each click and resize.
 
 | Row | Shows |
