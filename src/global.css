@@ -1,0 +1,31 @@
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  background: #11111b;
+  color: #cdd6f4;
+  font-family: "Inter", sans-serif;
+  font-kerning: none;
+  font-variant-ligatures: none;
+  scrollbar-width: none;
+  overflow-y: auto;
+}
+
+html::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
