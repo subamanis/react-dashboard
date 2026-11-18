@@ -5,6 +5,8 @@ It covers the first render, a re-render of every card on each frame, window resi
 
 React 19, TypeScript, CSS Modules, clsx, @tanstack/react-virtual and Vite 8.
 
+Live at https://subamanis.github.io/react-dashboard/, built from `main` by the Pages workflow.
+
 ## Run
 
 ```bash
@@ -37,7 +39,7 @@ The thin scrollbar on the right edge scrolls the page when its thumb is dragged.
 
 ## URL parameters
 
-The same modes can be set in the address, for scripted runs such as `/?count=25000&layout=masonry&hud=1`.
+The same modes can be set in the address, for scripted runs such as [`?count=25000&layout=masonry&hud=1`](https://subamanis.github.io/react-dashboard/?count=25000&layout=masonry&hud=1).
 
 | Parameter | Effect |
 |---|---|
