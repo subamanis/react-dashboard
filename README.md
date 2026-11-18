@@ -70,3 +70,7 @@ A long frame with no blocking time and under 1 ms of script and layout is left o
 ## Font
 
 The page uses Inter Regular from `public/fonts`, under the SIL Open Font License in `Inter-OFL.txt`.
+
+## License
+
+MIT, in `LICENSE`.
