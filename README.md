@@ -24,6 +24,7 @@ npm run preview
 ## The bar
 
 The bar at the top stays pinned while the page scrolls.
+On a narrow screen its controls wrap onto more lines.
 
 - **cards** field sets the number of cards, from 1 to 25,000. A new value applies on Enter or when the field loses focus. An entry that is not a whole number goes back to the current count.
 - **Grid** places the cards in rows of fixed width, wrapping at the window edge.
@@ -32,6 +33,7 @@ The bar at the top stays pinned while the page scrolls.
 - **clicks** counts the presses of the **Open** buttons on the cards.
 - **content-visibility** gives every card `content-visibility: auto`, so the browser skips layout and paint of the cards outside the viewport. It works in Grid only and is greyed out in Masonry.
 - **virtual** mounts only the cards near the viewport, with `useWindowVirtualizer` from @tanstack/react-virtual. It works in both layouts.
+- **Performance** opens and closes the F2 panel, for a screen with no keyboard.
 
 content-visibility and virtual exclude each other, and turning one on turns the other off.
 
@@ -52,7 +54,7 @@ The same modes can be set in the address, for scripted runs such as [`?count=250
 
 ## F2 panel
 
-F2 opens and closes a performance panel in the top right corner.
+F2 or the **Performance** toggle opens and closes a performance panel in the top right corner.
 The frame rows update every 500 ms, and the counts also update after each click and resize.
 
 | Row | Shows |

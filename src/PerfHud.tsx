@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import styles from "./Dashboard.module.css";
 
 interface PerformanceMemory {
@@ -20,14 +20,11 @@ interface LoafEntry extends PerformanceEntry {
   scripts?: LoafScriptEntry[];
 }
 
-function getInitialHudVisible(): boolean {
-  const params = new URLSearchParams(window.location.search);
-  return params.get("hud") === "1";
+interface PerfHudProps {
+  visible: boolean;
 }
 
-export default function PerfHud() {
-  const [visible, setVisible] = useState(getInitialHudVisible);
-
+export default function PerfHud({ visible }: PerfHudProps) {
   const fpsRef = useRef<HTMLSpanElement | null>(null);
   const frameRef = useRef<HTMLSpanElement | null>(null);
   const loafRef = useRef<HTMLSpanElement | null>(null);
@@ -36,17 +33,6 @@ export default function PerfHud() {
   const domRef = useRef<HTMLSpanElement | null>(null);
   const cardsRef = useRef<HTMLSpanElement | null>(null);
   const heapRef = useRef<HTMLSpanElement | null>(null);
-
-  useEffect(() => {
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "F2") {
-        e.preventDefault();
-        setVisible((v) => !v);
-      }
-    };
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, []);
 
   useEffect(() => {
     if (!visible) return undefined;

@@ -17,6 +17,7 @@ interface Modes {
   live: boolean;
   cv: boolean;
   virtual: boolean;
+  hud: boolean;
 }
 
 function getInitialModes(): Modes {
@@ -28,7 +29,8 @@ function getInitialModes(): Modes {
   const live = params.get("live") === "1";
   const virtual = params.get("virtual") === "1";
   const cv = !virtual && params.get("cv") === "1";
-  return { cardCount, layout, live, cv, virtual };
+  const hud = params.get("hud") === "1";
+  return { cardCount, layout, live, cv, virtual, hud };
 }
 
 export default function App() {
@@ -78,6 +80,21 @@ export default function App() {
     });
   }, []);
 
+  const handleToggleHud = useCallback(() => {
+    setModes((m) => ({ ...m, hud: !m.hud }));
+  }, []);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "F2") {
+        e.preventDefault();
+        handleToggleHud();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [handleToggleHud]);
+
   useEffect(() => {
     if (!modes.live) return undefined;
     let frameId = 0;
@@ -99,6 +116,7 @@ export default function App() {
         live={modes.live}
         cv={effectiveCv}
         virtual={modes.virtual}
+        hud={modes.hud}
         clicks={clicks}
         onCommitCount={handleCommitCount}
         onSelectGrid={handleSelectGrid}
@@ -106,6 +124,7 @@ export default function App() {
         onToggleLive={handleToggleLive}
         onToggleCv={handleToggleCv}
         onToggleVirtual={handleToggleVirtual}
+        onToggleHud={handleToggleHud}
       />
       <Grid
         cards={cards}
@@ -114,7 +133,7 @@ export default function App() {
         virtual={modes.virtual}
         onOpen={handleOpen}
       />
-      <PerfHud />
+      <PerfHud visible={modes.hud} />
       <Scrollbar />
     </main>
   );

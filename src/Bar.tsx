@@ -7,25 +7,14 @@ interface ToggleProps {
   label: string;
   checked: boolean;
   disabled?: boolean;
-  alignRight?: boolean;
   onToggle: () => void;
 }
 
-function Toggle({
-  label,
-  checked,
-  disabled = false,
-  alignRight = false,
-  onToggle,
-}: ToggleProps) {
+function Toggle({ label, checked, disabled = false, onToggle }: ToggleProps) {
   return (
     <button
       type="button"
-      className={clsx(
-        styles.toggle,
-        alignRight && styles.toggleRight,
-        disabled && styles.toggleDisabled,
-      )}
+      className={clsx(styles.toggle, disabled && styles.toggleDisabled)}
       disabled={disabled}
       aria-pressed={checked}
       onClick={onToggle}
@@ -46,6 +35,7 @@ interface BarProps {
   live: boolean;
   cv: boolean;
   virtual: boolean;
+  hud: boolean;
   clicks: number;
   onCommitCount: (nextCount: number) => void;
   onSelectGrid: () => void;
@@ -53,6 +43,7 @@ interface BarProps {
   onToggleLive: () => void;
   onToggleCv: () => void;
   onToggleVirtual: () => void;
+  onToggleHud: () => void;
 }
 
 export default function Bar({
@@ -61,6 +52,7 @@ export default function Bar({
   live,
   cv,
   virtual,
+  hud,
   clicks,
   onCommitCount,
   onSelectGrid,
@@ -68,6 +60,7 @@ export default function Bar({
   onToggleLive,
   onToggleCv,
   onToggleVirtual,
+  onToggleHud,
 }: BarProps) {
   const [draft, setDraft] = useState(() => String(cardCount));
   const isMasonry = layout === "masonry";
@@ -108,30 +101,34 @@ export default function Bar({
         />
         <span className={styles.barMeta}>cards</span>
       </div>
-      <button
-        type="button"
-        className={clsx(styles.pill, layout === "grid" && styles.pillActive)}
-        onClick={onSelectGrid}
-      >
-        Grid
-      </button>
-      <button
-        type="button"
-        className={clsx(styles.pill, isMasonry && styles.pillActive)}
-        onClick={onSelectMasonry}
-      >
-        Masonry
-      </button>
+      <div className={styles.pillGroup}>
+        <button
+          type="button"
+          className={clsx(styles.pill, layout === "grid" && styles.pillActive)}
+          onClick={onSelectGrid}
+        >
+          Grid
+        </button>
+        <button
+          type="button"
+          className={clsx(styles.pill, isMasonry && styles.pillActive)}
+          onClick={onSelectMasonry}
+        >
+          Masonry
+        </button>
+      </div>
       <Toggle label="Live" checked={live} onToggle={onToggleLive} />
       <span className={styles.barCounter}>clicks: {clicks}</span>
-      <Toggle
-        label="content-visibility"
-        checked={!isMasonry && cv}
-        disabled={isMasonry}
-        alignRight
-        onToggle={onToggleCv}
-      />
-      <Toggle label="virtual" checked={virtual} onToggle={onToggleVirtual} />
+      <div className={styles.browserToggles}>
+        <Toggle
+          label="content-visibility"
+          checked={!isMasonry && cv}
+          disabled={isMasonry}
+          onToggle={onToggleCv}
+        />
+        <Toggle label="virtual" checked={virtual} onToggle={onToggleVirtual} />
+        <Toggle label="Performance" checked={hud} onToggle={onToggleHud} />
+      </div>
     </header>
   );
 }
